@@ -1,63 +1,29 @@
 import { useState } from 'react';
 import { X, Play, Maximize2 } from 'lucide-react';
 
-// Interface para definir se é Foto ou Vídeo
+// Interface atualizada com o campo 'filter'
 interface PortfolioItem {
   id: number;
   type: 'image' | 'video';
-  src: string;       // Caminho da imagem ou da CAPA do vídeo
-  videoSrc?: string; // Caminho do arquivo de vídeo (só se type === 'video')
+  src: string;
+  videoSrc?: string;
   title: string;
   category: string;
   location: string;
+  filter: 'cortinas' | 'persianas' | 'videos';
 }
 
-// LISTA DE PROJETOS
+// LISTA DE PROJETOS ORGANIZADA E ATUALIZADA
 const portfolioItems: PortfolioItem[] = [
-  // --- FOTOS ORIGINAIS ---
-  { 
-    id: 1, 
-    type: 'image', 
-    src: '/portfolio/Gabriela1.jpg', 
-    title: 'Living com Painel Amadeirado', 
-    category: 'Cortinas em Linho',
-    location: 'Residência Lago Sul'
-  },
-  { 
-    id: 2, 
-    type: 'image', 
-    src: '/portfolio/Gabriela2.jpg', 
-    title: 'Suíte Master Minimalista', 
-    category: 'Cortina Wave Blackout',
-    location: 'Apartamento Noroeste'
-  },
-  
-  // --- GABRIELA 3 (FOTO + VÍDEO) ---
-  { 
-    id: 3, 
-    type: 'image', 
-    src: '/portfolio/Gabriela3.jpg', 
-    title: 'Hall Pé Direito Duplo', 
-    category: 'Cortina Translúcida',
-    location: 'Mansão Park Way'
-  },
-  { 
-    id: 30, // ID diferente para não conflitar
-    type: 'video', 
-    src: '/portfolio/Gabriela3.jpg', // Usa a mesma foto de capa
-    videoSrc: '/portfolio/Gabriela3_video.mp4', // ⚠️ COLOQUE SEU VÍDEO COM ESSE NOME NA PASTA
-    title: 'Hall Pé Direito Duplo (Vídeo)', 
-    category: 'Detalhes em Movimento',
-    location: 'Mansão Park Way'
-  },
-
+  // --- PERSIANAS ---
   { 
     id: 4, 
     type: 'image', 
     src: '/portfolio/Gabriela4.jpeg', 
     title: 'Home Office Executivo', 
     category: 'Persiana Rolô Screen',
-    location: 'Escritório Privativo'
+    location: 'Escritório Privativo',
+    filter: 'persianas'
   },
   { 
     id: 5, 
@@ -65,7 +31,95 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela5.jpg', 
     title: 'Varanda Integrada', 
     category: 'Tela Solar 3%',
-    location: 'Espaço Gourmet'
+    location: 'Espaço Gourmet',
+    filter: 'persianas'
+  },
+
+  // --- VÍDEOS ---
+  { 
+    id: 30, 
+    type: 'video', 
+    src: '/portfolio/Gabriela3.jpg', 
+    videoSrc: '/portfolio/Gabriela3_video.mp4', 
+    title: 'Hall Pé Direito Duplo (Vídeo)', 
+    category: 'Detalhes em Movimento',
+    location: 'Mansão Park Way',
+    filter: 'videos'
+  },
+  { 
+    id: 31, // NOVO VÍDEO
+    type: 'video', 
+    src: '/portfolio/Gabriela12.jpeg', // Capa (Foto da varanda)
+    videoSrc: '/portfolio/Gabriela12_video.mp4', // ⚠️ COLOQUE O VÍDEO DA VARANDA COM ESSE NOME
+    title: 'Varanda Gourmet (Vídeo)', 
+    category: 'Cortinas Outdoor',
+    location: 'Área de Lazer',
+    filter: 'videos'
+  },
+
+  // --- CORTINAS ---
+  { 
+    id: 24, // NOVA FOTO
+    type: 'image', 
+    src: '/portfolio/Gabriela24.jpeg', 
+    title: 'Living com Vista Panorâmica', 
+    category: 'Cortina Wave Pé Direito Duplo',
+    location: 'Mansão Lago Norte',
+    filter: 'cortinas'
+  },
+  { 
+    id: 23, // NOVA FOTO
+    type: 'image', 
+    src: '/portfolio/Gabriela23.jpeg', 
+    title: 'Living Integrado em "L"', 
+    category: 'Cortina de Linho Off-White',
+    location: 'Residência Sudoeste',
+    filter: 'cortinas'
+  },
+  { 
+    id: 22, // NOVA FOTO
+    type: 'image', 
+    src: '/portfolio/Gabriela22.jpeg', 
+    title: 'Home Theater Sofisticado', 
+    category: 'Veludo com Painel de Madeira',
+    location: 'Sala de TV',
+    filter: 'cortinas'
+  },
+  { 
+    id: 21, // NOVA FOTO
+    type: 'image', 
+    src: '/portfolio/Gabriela21.jpeg', 
+    title: 'Sala de Jantar Integrada', 
+    category: 'Linho Rústico',
+    location: 'Apartamento Noroeste',
+    filter: 'cortinas'
+  },
+  { 
+    id: 1, 
+    type: 'image', 
+    src: '/portfolio/Gabriela1.jpg', 
+    title: 'Living com Painel Amadeirado', 
+    category: 'Cortinas em Linho',
+    location: 'Residência Lago Sul',
+    filter: 'cortinas'
+  },
+  { 
+    id: 2, 
+    type: 'image', 
+    src: '/portfolio/Gabriela2.jpg', 
+    title: 'Suíte Master Minimalista', 
+    category: 'Cortina Wave Blackout',
+    location: 'Apartamento Noroeste',
+    filter: 'cortinas'
+  },
+  { 
+    id: 3, 
+    type: 'image', 
+    src: '/portfolio/Gabriela3.jpg', 
+    title: 'Hall Pé Direito Duplo', 
+    category: 'Cortina Translúcida',
+    location: 'Mansão Park Way',
+    filter: 'cortinas'
   },
   { 
     id: 6, 
@@ -73,7 +127,8 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela6.jpeg', 
     title: 'Sala de Jantar', 
     category: 'Gaze de Linho',
-    location: 'Casa Alphaville'
+    location: 'Casa Alphaville',
+    filter: 'cortinas'
   },
   { 
     id: 7, 
@@ -81,7 +136,8 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela7.jpeg', 
     title: 'Grand Living', 
     category: 'Cortina Wave Longa',
-    location: 'Residência Damha'
+    location: 'Residência Damha',
+    filter: 'cortinas'
   },
   { 
     id: 8, 
@@ -89,7 +145,8 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela8.jpeg', 
     title: 'Dormitório Confort', 
     category: 'Blackout Cinza',
-    location: 'Apartamento Águas Claras'
+    location: 'Apartamento Águas Claras',
+    filter: 'cortinas'
   },
   { 
     id: 9, 
@@ -97,7 +154,8 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela9.jpeg', 
     title: 'Home Theater', 
     category: 'Cortina Acústica',
-    location: 'Sala de TV'
+    location: 'Sala de TV',
+    filter: 'cortinas'
   },
   { 
     id: 10, 
@@ -105,17 +163,17 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela10.jpeg', 
     title: 'Sala de Reuniões', 
     category: 'Corporativo',
-    location: 'Sede Empresarial'
+    location: 'Sede Empresarial',
+    filter: 'cortinas'
   },
-
-  // --- NOVAS FOTOS (12 a 20) ---
   { 
     id: 12, 
     type: 'image', 
     src: '/portfolio/Gabriela12.jpeg', 
     title: 'Varanda Gourmet Noturna', 
     category: 'Cortinas Outdoor',
-    location: 'Área de Lazer'
+    location: 'Área de Lazer',
+    filter: 'cortinas'
   },
   { 
     id: 13, 
@@ -123,7 +181,8 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela13.jpeg', 
     title: 'Penteadeira Clássica', 
     category: 'Gaze de Linho',
-    location: 'Suíte Master'
+    location: 'Suíte Master',
+    filter: 'cortinas'
   },
   { 
     id: 14, 
@@ -131,7 +190,8 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela14.jpeg', 
     title: 'Living Monumental', 
     category: 'Pé Direito Duplo',
-    location: 'Mansão Park Way'
+    location: 'Mansão Park Way',
+    filter: 'cortinas'
   },
   { 
     id: 15, 
@@ -139,7 +199,8 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela15.jpeg', 
     title: 'Lounge Corporativo', 
     category: 'Cortina Wave',
-    location: 'Sala de Conferência'
+    location: 'Sala de Conferência',
+    filter: 'cortinas'
   },
   { 
     id: 16, 
@@ -147,7 +208,8 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela16.jpeg', 
     title: 'Home Cinema', 
     category: 'Blackout 100%',
-    location: 'Sala de TV'
+    location: 'Sala de TV',
+    filter: 'cortinas'
   },
   { 
     id: 17, 
@@ -155,7 +217,8 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela17.jpeg', 
     title: 'Sala de Estar Integrada', 
     category: 'Cortina Wave Iluminada',
-    location: 'Residência Sudoeste'
+    location: 'Residência Sudoeste',
+    filter: 'cortinas'
   },
   { 
     id: 18, 
@@ -163,7 +226,8 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela18.jpeg', 
     title: 'Cantinho de Leitura', 
     category: 'Estilo Clássico',
-    location: 'Varanda Interna'
+    location: 'Varanda Interna',
+    filter: 'cortinas'
   },
   { 
     id: 19, 
@@ -171,7 +235,8 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela19.jpeg', 
     title: 'Sala Íntima / Painel', 
     category: 'Blackout Bege',
-    location: 'Apartamento Asa Norte'
+    location: 'Apartamento Asa Norte',
+    filter: 'cortinas'
   },
   { 
     id: 20, 
@@ -179,19 +244,34 @@ const portfolioItems: PortfolioItem[] = [
     src: '/portfolio/Gabriela20.jpeg', 
     title: 'Sala de Jantar', 
     category: 'Cortina com Forro',
-    location: 'Residência Guará'
+    location: 'Residência Guará',
+    filter: 'cortinas'
   },
 ];
 
 const Portfolio = () => {
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
+  const [activeCategory, setActiveCategory] = useState<'todos' | 'cortinas' | 'persianas' | 'videos'>('todos');
+
+  // Lógica de Filtragem
+  const filteredItems = activeCategory === 'todos' 
+    ? portfolioItems 
+    : portfolioItems.filter(item => item.filter === activeCategory);
+
+  // Lista de botões para o menu
+  const categories = [
+    { id: 'todos', label: 'Todos' },
+    { id: 'cortinas', label: 'Cortinas' },
+    { id: 'persianas', label: 'Persianas' },
+    { id: 'videos', label: 'Vídeos' },
+  ];
 
   return (
     <section id="portfolio" className="py-24 bg-[#080808] relative">
       <div className="container mx-auto px-4 md:px-8">
         
         {/* Cabeçalho */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <span className="text-xs font-bold tracking-[0.3em] uppercase text-gray-500 mb-4 block">
             Nossos Projetos
           </span>
@@ -201,9 +281,30 @@ const Portfolio = () => {
           <div className="w-20 h-[1px] bg-white/20 mx-auto" />
         </div>
 
-        {/* Masonry Grid (Responsivo) */}
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6 max-w-7xl mx-auto">
-          {portfolioItems.map((item) => (
+        {/* Menu de Filtros (Abas) */}
+        <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-12">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id as any)}
+              className={`text-sm md:text-base font-medium tracking-widest uppercase px-4 py-2 rounded-sm transition-all duration-300 relative group ${
+                activeCategory === cat.id 
+                  ? 'text-white' 
+                  : 'text-gray-500 hover:text-gray-300'
+              }`}
+            >
+              {cat.label}
+              {/* Linha indicadora animada */}
+              <span className={`absolute bottom-0 left-0 w-full h-[1px] bg-white transform transition-transform duration-300 ${
+                activeCategory === cat.id ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-50'
+              }`} />
+            </button>
+          ))}
+        </div>
+
+        {/* Grid de Projetos (Masonry) */}
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6 max-w-7xl mx-auto animate-in fade-in duration-700">
+          {filteredItems.map((item) => (
             <div
               key={item.id}
               className="group relative break-inside-avoid rounded-sm overflow-hidden cursor-pointer border border-white/5 bg-[#121212]"
@@ -252,6 +353,14 @@ const Portfolio = () => {
             </div>
           ))}
         </div>
+        
+        {/* Mensagem caso não haja itens no filtro (Segurança) */}
+        {filteredItems.length === 0 && (
+          <div className="text-center py-20 text-gray-500">
+            <p>Nenhum projeto encontrado nesta categoria.</p>
+          </div>
+        )}
+
       </div>
 
       {/* Modal / Lightbox */}
