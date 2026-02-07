@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from "./components/WhatsAppButton"; // Importe o botão aqui
+import { Analytics } from "@vercel/analytics/react"; // 1. Adicione este import
 
 const queryClient = new QueryClient();
 
@@ -15,12 +16,11 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        {/* O botão fica aqui para aparecer em todas as telas */}
         <WhatsAppButton />
+        <Analytics /> {/* 2. Coloque o componente aqui */}
         
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
