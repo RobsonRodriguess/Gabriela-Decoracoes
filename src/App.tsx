@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import WhatsAppButton from "./components/WhatsAppButton"; // Importe o botão aqui
 import { Analytics } from "@vercel/analytics/react"; // 1. Adicione este import
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
       <BrowserRouter>
         <WhatsAppButton />
         <Analytics /> {/* 2. Coloque o componente aqui */}
+        <SpeedInsights />
         
         <Routes>
           <Route path="/" element={<Index />} />
